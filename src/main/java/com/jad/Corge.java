@@ -8,7 +8,7 @@ public class Corge {
     }
 
     public Foo getFoo() {
-        return foo;
+        return this.foo;
     }
 
     public void setFoo(Foo foo) {
