@@ -7,47 +7,47 @@ public class Foo {
     private Bar bar;
     private List<Baz> bazs;
     private Qux qux;
-    private Corge corge;
     private List<Grault> graults;
+    private Corge corge;
 
-    public Foo(Bar bar) {
+    public Foo(final Bar bar) {
         this.bar = bar;
         this.bazs = new ArrayList<>();
+        this.qux = new Qux();
         this.graults = new ArrayList<>();
+    }
+
+    public List<Baz> getBazs() {
+        return this.bazs;
     }
 
     public Corge getCorge() {
         return this.corge;
     }
 
-    public void setQux(Qux qux) {
-        this.qux = qux;
+    public void setCorge(final Corge corge) {
+        if (this.corge != null) this.corge.setFoo(null);
+        this.corge = corge;
+        if ((corge != null) && (corge.getFoo() != this)) corge.setFoo(this);
     }
 
-    public void setCorge(Corge corge) {
-        this.corge = corge;
+    public List<Grault> getGraults() {
+        return this.graults;
+    }
+
+    public Qux getQux() {
+        return this.qux;
+    }
+
+    public Bar getBar() {
+        return this.bar;
     }
 
     public void addBaz(Baz baz) {
-        if (baz != null && !this.bazs.contains(baz)) {
-            this.bazs.add(baz);
-        }
+        this.bazs.add(baz);
     }
 
-    public void removeBaz(Baz baz) {
-        this.bazs.remove(baz);
-    }
-
-    public void addGrault(Grault grault) {
-        if (grault != null && !this.graults.contains(grault)) {
-            this.graults.add(grault);
-            grault.setFoo(this);
-        }
-    }
-
-    public void removeGrault(Grault grault) {
-        if (this.graults.remove(grault)) {
-            grault.setFoo(null);
-        }
+    public void addGrault() {
+        this.graults.add(new Grault(this));
     }
 }
